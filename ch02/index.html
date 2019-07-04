@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    {{msg}} <br>
+    {{ 1 > 0 ? 'YES' : 'NO'}}
+  </div>
+  <script>
+    let log = console.log.bind(console)
+
+    let app = new Vue({
+      el: '#app',
+      data: {
+        msg: '开始学习Vue'
+      },
+      created: function(){
+        // 实例创建完成后调用，此阶段完成了数据的监听，但尚未挂在到 DOM 上， $el 还不能使用
+        log('created')
+        log('this', this)
+        log('msg is ' + this.msg)
+        log(this.$el, this.el)
+        
+      },
+      mounted: function(){
+        // 将 实例挂在到 dom 上
+        log('monted 完成挂载')
+      }
+
+    })
+
+    log('访问 vue 的 el', app.$el)
+    log('访问 vue 中的 data 数据', app.$data )
+    log('访问 msg ', app.msg, app.$data.msg)
+
+  </script>
+</body>
+</html>
