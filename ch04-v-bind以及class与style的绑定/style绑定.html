@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>style绑定</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <div id="app1">
+    <p>v-bind:style 的对象语法十分直观——看着非常像 CSS，但其实是一个 JavaScript 对象。</p>
+    <p :style="{display: displayClass, fontSize: fontSize+'px', border: '1px solid red'}">
+      用驼峰式 (camelCase) 命名
+    </p>
+    <p :style="{ height: '20px', border: '1px solid', 'border-radius': '10px'}">
+      短横线分隔 (kebab-case，记得用引号括起来) 来命名：
+    </p>
+    <div v-bind:style="[baseStyles, overridingStyles]">数组语法</div>
+  </div>
+  <script src="../log.js"></script>
+  <script>
+    let app1 = new Vue({
+      el: '#app1',
+      data: {
+        displayClass: 'block',
+        fontSize: 20,
+        baseStyles: {
+          width: '200px',
+          height: '200px',
+          color: '#fff'
+        },
+        overridingStyles: {
+          backgroundColor: '#42b983',
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>

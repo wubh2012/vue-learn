@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>class绑定</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+  <style>
+    .classname1{
+      color: red;
+    }
+    .classname2{
+      color: blue;
+    }
+    .classname3{
+      color: green;
+    }
+    .classname4{
+      border: 10px solid black;
+    }
+    .text-danger{
+      color: red;
+      padding: 10px;
+    }
+    .computed-border{
+      border: 2px solid blue;
+    }
+    .computed-fontsize{
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app1">
+    <p :class="classname1">变量语法</p>
+    <p :class="[classname3, classname4]">数组语法</p>
+
+    <p :class="{classname2: classname2IsActive}">对象语法</p>
+    <p :class="classObject">对象语法2</p>
+    <p :class="fromComputed"> 使用计算实现实现</p>
+    
+  </div>
+  <script src="../log.js"></script>
+  <script>  
+    let app1 = new Vue({
+      el: '#app1',
+      data: {
+        classname1: 'classname1',
+        classname2IsActive: true,
+        classObject: {
+          'text-danger': true,
+          'classname2': true
+        },
+        classname3: 'text-danger',
+        classname4: 'classname4'
+      },
+      computed: {
+        fromComputed: function(){
+          return {
+            'computed-border': true,
+            'computed-fontsize': false
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
