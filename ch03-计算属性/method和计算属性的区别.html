@@ -13,13 +13,16 @@
 
 <body>
   <div id="app1">
-    使用计算属性使字符串反转
-    {{reverseText}} <br/>
+    
+    {{msg}} <br/>
     <p>使用计算属性实现 fullName: {{fullName}}</p>
-    <p>使用 watch 实现 fullName: {{firstName}}{{lastName}}</p>
-    <p>使用 getFullName 方法实现 {{getFullName()}}</p>
+    <p>使用方法实现 fullName: {{getFullName()}}</p>
     <button @click="changeFirstName">将FirstName变成李</button>
     <button @click="changeMsg">change msg</button>
+    <p>当change msg 的按钮时，使用方法实现的时间戳会发生变化，而是用计算属性实现却不会，
+      <br>
+      这是因为计算属性是基于它的依赖缓存的。 一个计算属性所依赖的数据发生变化时，它才会重新取值。
+    </p>
   </div>
   <script src="../log.js"></script>
   <script>  
@@ -38,23 +41,12 @@
           this.msg = 'new mseesage'
         },
         getFullName: function(){
-          return `${this.firstName} ${this.lastName} `
+          return `${this.firstName} ${this.lastName} ----时间戳:${Date.now()}`
         }
       },
       computed: {
-        reverseText: function(){
-          return this.msg.split('').reverse().join('')
-        },
         fullName: function(){
-          return `${this.firstName} ${this.lastName} `
-        }
-      },
-      watch: {
-        firstName: function(value){
-          return `${value} ${this.lastName} `
-        },
-        lastName: function(value){
-          return `${this.lastName} ${value} `
+          return `${this.firstName} ${this.lastName} ----时间戳:${Date.now()}`
         }
       }
     })
