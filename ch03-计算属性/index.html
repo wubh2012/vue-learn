@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+  <style>
+  </style>
+</head>
+
+<body>
+  <div id="app1">
+    使用计算属性使字符串反转
+    {{reverseText}} <br/>
+    <p>使用计算属性实现 fullName: {{fullName}}</p>
+    <p>使用 watch 实现 fullName: {{firstName}}{{lastName}}</p>
+    <button @click="changeFirstName">将FirstName变成李</button>
+  </div>
+  <script src="../log.js"></script>
+  <script>  
+    let app1 = new Vue({
+      el: '#app1',
+      data: {
+        msg: 'hello',
+        firstName: '王',
+        lastName: '宝强'
+      },
+      methods: {
+        changeFirstName: function(evt) {
+          this.firstName = '李'
+        }
+      },
+      computed: {
+        reverseText: function(){
+          return this.msg.split('').reverse().join('')
+        },
+        fullName: function(){
+          return `${this.firstName} ${this.lastName}`
+        }
+      },
+      watch: {
+        firstName: function(value){
+          return `${value} ${this.lastName}`
+        },
+        lastName: function(value){
+          return `${this.lastName} ${value}`
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -34,13 +34,13 @@
     <button v-on:click="testclick"> 点击</button>
     <button @click="testclick">点击2</button>
   </div>
+  <script src="../log.js"></script>
   <script>
     /**
      * 在｛｛｝｝中，Vue只支持单个表达式，不支持语句和流控制
      * {{var a = 6}}--也是多行表达式----var a ;a = 6; // 错误
      */
-    let log = console.log.bind(console)
-
+    
     let app = new Vue({
       el: '#app',
       data: {
