@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>修饰符</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app" style="margin-bottom: 300px;">
+
+      <h2>文本</h2>
+      <p>正常情况，每按下任意字符都会立即显示 </p>
+      <input type="text" v-model="normalmsg" placeholder="edit me"> {{normalmsg}}
+
+      <h3>v-model加上.lazy后会延时显示,按下回车或失去焦点时就会触发立即显示 </h3>
+      <input type="text" v-model.lazy="lazymessage" placeholder="edit me"> {{lazymessage}}
+      <h3> .number, 将用户的输入值转为数值类型</h3>
+      <input type="text" v-model.number="numbermessage" placeholder="edit me">{{typeof numbermessage}} {{numbermessage}}
+
+      <h3> .trim, 去除首尾空格</h3>
+      <input type="text" v-model.trim="trimmessage" placeholder="edit me">{{typeof trimmessage}} --{{trimmessage}}--
+  </div>
+  <script>
+    let app1 = new Vue({
+      el: '#app',
+      data: {
+        normalmsg: '',
+        lazymessage: '',
+        numbermessage: '',
+        trimmessage: ''
+      },
+      methods: {
+        
+      }
+    })
+  </script>
+</body>
+
+</html>

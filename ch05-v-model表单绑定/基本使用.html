@@ -27,7 +27,7 @@
     <hr>
     <h2>复选框</h2>
     <h3>单个复选框</h3>
-    <label> <input type="checkbox" v-model="checked"> 吃饭</label> ==>{{checked}}
+    <label> <input type="checkbox" v-model="onecheck"> 吃饭</label> ==>{{onecheck}}
     <h3>多个复选框</h3>
     <label><input type="checkbox" value="吃饭" v-model="mulitcheck"> 吃饭 </label>
     <label><input type="checkbox" value="睡觉" v-model="mulitcheck"> 睡觉 </label>
@@ -57,7 +57,7 @@
         textareaMsg: '',
         oneradio: true,      // 一个单选按钮
         mulitradio: 'woman', // 多个单选按钮
-        checked: true,      // 一个复选框
+        onecheck: true,      // 一个复选框
         mulitcheck: ['吃饭', '睡觉'], // 多个复选框
         oneselect: '',               // 单选的下拉列表
         mulitselect: ['睡觉','打豆豆'] // 允许多选的下拉列表
