@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-model与表单的基本使用</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app" style="margin-bottom: 300px;">
+    <h2>文本</h2>
+    <p>单行文本: ==>{{message}}</p>
+    <input type="text" v-model="message" placeholder="edit me">
+    <p>文本域的值：==>{{textareaMsg}}</p>
+    <textarea cols="30" rows="3" v-model="textareaMsg"></textarea>
+    <hr>
+    <h2>单选按钮</h2>
+    <h3>单个</h3>
+    <label> <input type="radio" v-bind:checked="oneradio"> 男 </label> ==>{{oneradio}}
+    <h3>多个</h3>
+    <label> <input type="radio" name="group1" value="man" v-model="mulitradio"> 男 </label>
+    <label> <input type="radio" name="group1" value="woman" v-model="mulitradio"> 女 </label>
+    ==>{{mulitradio}}
+    <hr>
+    <h2>复选框</h2>
+    <h3>单个复选框</h3>
+    <label> <input type="checkbox" v-model="checked"> 吃饭</label> ==>{{checked}}
+    <h3>多个复选框</h3>
+    <label><input type="checkbox" value="吃饭" v-model="mulitcheck"> 吃饭 </label>
+    <label><input type="checkbox" value="睡觉" v-model="mulitcheck"> 睡觉 </label>
+    <label><input type="checkbox" value="打豆豆" v-model="mulitcheck"> 打豆豆 </label>
+    ==>{{mulitcheck}}
+    <hr>
+    <h2>选择框</h2>
+    <p>单选</p>
+    <select v-model="oneselect">
+      <option value="">请选择</option>
+      <option value="吃饭">吃饭</option>
+      <option value="睡觉">睡觉</option>
+      <option value="打豆豆">打豆豆</option>
+    </select> ==>{{oneselect}}
+    <p>多选选</p>
+    <select v-model="mulitselect" multiple>
+      <option value="吃饭">吃饭</option>
+      <option value="睡觉">睡觉</option>
+      <option value="打豆豆">打豆豆</option>
+    </select> ==>{{mulitselect}}
+  </div>
+  <script>
+    let app1 = new Vue({
+      el: '#app',
+      data: {
+        message: '',
+        textareaMsg: '',
+        oneradio: true,      // 一个单选按钮
+        mulitradio: 'woman', // 多个单选按钮
+        checked: true,      // 一个复选框
+        mulitcheck: ['吃饭', '睡觉'], // 多个复选框
+        oneselect: '',               // 单选的下拉列表
+        mulitselect: ['睡觉','打豆豆'] // 允许多选的下拉列表
+      },
+      methods: {
+
+      }
+    })
+  </script>
+</body>
+
+</html>
