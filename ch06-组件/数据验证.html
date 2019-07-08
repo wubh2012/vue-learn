@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue-数据验证</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+
+<body>
+  <div id="app" style="margin-bottom: 300px;">
+    <component-a :msg="string" prop-b="1" prop-c=99 :prop-d="booleand" prop-e="EEEE"></component-a>
+  </div>
+  <script>
+    let app1 = new Vue({
+      el: '#app',
+      data: {
+        string: '一大串字符',
+        booleand: '不是boolean'
+      },
+      methods: {
+
+      },
+      components: {
+        'component-a': {
+          props: {
+            msg: String,
+            propB: Number,
+            propC: [String, Number], // 类型可以是 String 或 Number
+            propD: {
+              type: Boolean,
+              default: false, // 如果在子组件上不传递 prop-d ，默认显示 false
+            },
+            propE: {
+              required: true
+            }
+          },
+          data: function(){
+            return {
+              stringmsg: this.msg,
+            }
+          },
+          template: `<p>
+            {{msg}}, {{stringmsg}}<br> 
+            期望是Number：{{propB}} <br> 
+            期望可以是Number和String：{{propC}} <br/>
+            期望Boolean: {{propD}} <br/>
+            必传E，否则控制台报错: {{propE}}
+            </p>`,
+        }
+      }
+
+    })
+  </script>
+</body>
+
+</html>
