@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>使用props向子组件传递数据</title>
   <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+  <!-- <script src="https://cdn.bootcss.com/vue/2.6.10/vue.runtime.min.js"></script> -->
   <style>
     h2 {
       border: 1px solid red;
@@ -18,7 +19,8 @@
   <div id="app" style="margin-bottom: 300px;">
 
     <p>基本使用</p>
-    <component-a msg="传递给局部组件的静态消息"></component-a>
+    <!-- myTest 相当于 mytest -->
+    <component-a msg="传递给局部组件的静态消息" my-msg="测试my-msg" myTest="测试myTest"></component-a>
     <p>使用 v-bind动态绑定</p>
     <component-a :msg="msg"></component-a>
     <p>使用 v-model 动态传递消息给子组件</p>
@@ -30,14 +32,21 @@
 
   </div>
   <script>
+
+    /*
+    1. 在html中, myMessage 和 mymessage  是一致的,,因此在组件中的html中使用必须使用kebab­case（短横线）命名方式。在html中不允许使用驼峰
+    2. 在组件中, 父组件给子组件传递数据必须用短横线。
+    3. 在template中，必须使用驼峰命名方式，若为短横线的命名方式。则会直接保错
+    3. 在组件的data中,用this.XXX引用时,只能是驼峰命名方式。若为短横线的命名方式，则会报错
+    */
     let componetA = {
-      props: ['msg'],
+      props: ['msg', 'myMsg', 'mytest'],
       data: function () {
         return {
           msg1: '局部组件'
         }
       },
-      template: '<h2>{{msg}}</h2>'
+      template: '<h2>{{msg}}, {{myMsg}}, {{mytest}}</h2>'
     }
     let componetB = {
       props: ['inputvalue'],
