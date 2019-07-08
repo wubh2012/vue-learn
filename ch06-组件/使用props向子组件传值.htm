@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>使用props向子组件传递数据</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+  <style>
+    h2 {
+      border: 1px solid red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" style="margin-bottom: 300px;">
+
+    <p>基本使用</p>
+    <component-a msg="传递给局部组件的静态消息"></component-a>
+    <p>使用 v-bind动态绑定</p>
+    <component-a :msg="msg"></component-a>
+    <p>使用 v-model 动态传递消息给子组件</p>
+    <input type="text" v-model="inputvalue">
+    <component-b :inputvalue="inputvalue"></component-b>
+  </div>
+  <script>
+    let componetA = {
+      props: ['msg'],
+      data: function () {
+        return {
+          msg1: '局部组件'
+        }
+      },
+      template: '<h2>{{msg}}</h2>'
+    }
+
+    let componetB = {
+      props: ['inputvalue'],
+      data: function () {
+        return {
+          msg1: '局部组件'
+        }
+      },
+      template: '<h2>{{displaymsg}}</h2>',
+      computed: {
+        displaymsg: function () {
+          return `${this.msg1}, ${this.inputvalue}`
+        }
+      }
+    }
+
+    let app1 = new Vue({
+      el: '#app',
+      data: {
+        msg: '来自app1的消息',
+        inputvalue: ''
+      },
+      methods: {
+
+      },
+      // 在 componets 属性中注册局部组件
+      components: {
+        'component-a': componetA,
+        'component-b': componetB,
+      }
+
+    })
+  </script>
+</body>
+
+</html>
