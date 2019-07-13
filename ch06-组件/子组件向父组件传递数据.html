@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>子组件向父组件传递数据</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+
+<body>
+  <div id="app" style="margin-bottom: 300px;">    
+      <div>当前余额：{{amount}}</div>
+      <btn-component :amount="amount" @change="handlerAmount"></btn-component>
+  </div>
+  <script>
+    Vue.component('btn-component', {
+      props: {
+        amount: Number
+      },
+      // data: function(){
+      //   childAmount: amount
+      // },
+      template: `<div>
+        父组件传递过来的值 {{amount}} <br/>
+        <button @click="add"> +1000</button> 
+        <button @click="minus"> -1000</button>
+        </div>`,
+      methods: {
+        add: function(){
+          this.amount += 1000;
+          this.$emit('change', this.amount)
+        },
+        minus: function(){
+          this.amount -= 1000;
+          this.$emit('change', this.amount)
+        },
+      },      
+    })
+    let app1 = new Vue({
+      el: '#app',
+      data: {
+        amount: 1000
+      },
+      methods: {
+        handlerAmount: function(value){
+          this.amount = value
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
