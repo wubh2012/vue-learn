@@ -14,6 +14,14 @@
     <b-component></b-component>
   </div>
   <script>
+    /**
+     * 1. 在父组件的data属性上注册一个 bus 属性 bus = new Vue()
+     * 2. a 组件通过 this.$root.bus.$emit('xxx', 'msg')，触发 xxx 事件
+     * 3. b 组件在 created 的时候监听 xxx 事件, 
+     * this.$root.bus.$on('xxx', function(value){
+          alert('接收数据：'+ value)
+        })
+     */ 
     Vue.component('a-component', {
       data: function(){
         return {
