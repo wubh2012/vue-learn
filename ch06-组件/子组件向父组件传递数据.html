@@ -9,6 +9,13 @@
 </head>
 
 <body>
+  <!-- 
+    1. 子组件使用 $emit 方法向父组件传递数据 this.$emit('change', this.amount)
+    2. 第一个参数是事件的名称，第二个参数是需要传递的值，
+    使用步骤：
+    1. 父组件的 methods 上添加 handlerAmount 事件
+    2. 然后将这个事件 handlerAmount 绑定到子组件上 @change="handlerAmount"（change时触发，可以是其他事件类型）
+   -->
   <div id="app" style="margin-bottom: 300px;">    
       <div>当前余额：{{amount}}</div>
       <btn-component :amount="amount" @change="handlerAmount"></btn-component>
