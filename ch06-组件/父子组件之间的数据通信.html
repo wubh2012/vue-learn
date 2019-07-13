@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>父子组件之间的数据通信</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+  <style>
+    .parent {
+      margin-bottom: 300px;
+      border: 1px solid #000;
+      padding: 10px;
+    }
+
+    .child {
+      border: 1px solid red;
+      margin: 10px;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="parent">
+    <button @click="getChildData">获取子组件的数据</button>
+    <br><br>
+    <child-component ref="a"></child-component>
+    <child-component ref="b"></child-component>
+    <child-component ref="c"></child-component>
+  </div>
+  <script>
+    Vue.component('child-component', {
+      data: function () {
+        return {
+          msg: '我是子组件的数据'
+        }
+      },
+      template: `
+        <div class="child">
+        {{msg}}<br/>
+        <button @click="getParentData">获取父组件的数据</button>
+        </div>
+        `,
+      methods: {
+        getParentData: function () {
+          alert(this.$parent.msg)
+        }
+      }
+    })
+    let app1 = new Vue({
+      el: '#app',
+      data: {
+        msg: '我是父组件的数据'
+      },
+      methods: {
+        getChildData: function () {
+          // this.$children 获取的一个所有子组件的数组，可以通过下标访问
+          // console.log(this.$children);          
+          // alert(this.$children[0].msg)
+
+          this.$refs.a.msg = " 修改子组件 a 的数据"
+          console.log(this.$refs);
+          
+          alert(this.$refs.a.msg)
+          alert(this.$refs.b.msg)
+          alert(this.$refs.c.msg)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

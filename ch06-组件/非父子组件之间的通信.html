@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>非父子组件之间的通信</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+
+<body>
+  <div id="app" style="margin-bottom: 300px;">
+    <a-component></a-component>
+    <b-component></b-component>
+  </div>
+  <script>
+    Vue.component('a-component', {
+      data: function(){
+        return {
+          msg: 'AAAAAAAAA'
+        }
+      },
+      template: `<div><button @click="getmsg">我是A组件，向B组件中的数据</button></div>`,
+      methods:{
+        getmsg: function(){
+          this.$root.bus.$emit('xxx', this.msg)
+        }
+      }
+    })
+
+    Vue.component('b-component', {
+      data: function(){
+        return {
+          msg: 'BBBBBBBB'
+        }
+      },
+      template: `<div><button @click="getmsg">我是B组件</button></div>`,
+      created: function(){
+        this.$root.bus.$on('xxx', function(value){
+          alert('接收数据：'+ value)
+        })
+      },
+      methods: {
+      }
+    })
+
+    let app1 = new Vue({
+      el: '#app',
+      data: {
+        bus: new Vue()
+      },
+      methods: {
+
+      }
+    })
+  </script>
+</body>
+
+</html>
