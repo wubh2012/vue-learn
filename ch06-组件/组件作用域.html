@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue 练习模板</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+  <style>
+    .child{
+      border: 1px solid red;
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" style="margin-bottom: 300px;">
+    {{msg}}
+    <hr>
+    <child-component ref="a"></child-component>
+    <hr>
+    <child-component ref="b" v-show="show"></child-component>
+  </div>
+  <script>
+    /**
+    * 1. 当子组件 child-component 绑定了父组件的 v-show=true时，子组件本身的 v-show=false，
+        父组件的值会覆盖子组件，在页面上还是会显示子组件
+    * 2. 当子组件 child-component 不绑定任何属性时，子组件是否显示就由子组件自己的 show 属性决定
+    */
+    Vue.component('child-component', {
+      data: function(){
+        return {
+          msg: '我是子组件',
+          show: true
+        }
+      },
+      template: `<div class="child" v-show="show">{{msg}}---子组件show:{{show}}</div>`
+    })
+    let app1 = new Vue({
+      el: '#app',
+      data: {
+        msg: '我是父组件',
+        show: false
+      },
+      methods: {
+
+      }
+    })
+  </script>
+</body>
+
+</html>
