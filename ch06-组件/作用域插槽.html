@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue 练习模板</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+  <style>
+    .parent {
+      border: 1px solid #000;
+      padding: 10px;
+      margin-bottom: 300px;
+    }
+
+    .child {
+      border: 1px solid red;
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="parent">
+    <current-user>
+      <template v-slot:a>
+
+        <!-- {{ slotProps.user.firstName }} {{ slotProps.user.lastName }} -->
+      </template>
+      <template v-slot:b>
+        {{ b.name }}
+      </template>
+    </current-user>
+  </div>
+  <script>
+    Vue.component('current-user', {
+      data: function () {
+        return {
+          user: {
+            firstName: '奈德的私生子',
+            lastName: '冏·雪诺'
+          }
+        }
+      },
+      template: `
+      <p>
+        <slot v-bind:user="user" name="a">{{ user.lastName }}</slot>
+      </p>
+      <p>
+          <slot name="b"></slot>
+      </p>
+      `
+    })
+
+    let app1 = new Vue({
+      el: '#app',
+      data: {
+        user: {
+          firstName: '张',
+          lastName: '三'
+        },
+      },
+      methods: {
+
+      }
+    })
+  </script>
+</body>
+
+</html>

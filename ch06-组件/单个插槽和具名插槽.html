@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>单个插槽和具名插槽</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+  <style>
+    .parent {
+      border: 1px solid #000;
+      padding: 10px;
+      margin-bottom: 300px;
+    }
+
+    .child {
+      border: 1px solid red;
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="parent">
+    <h2>单个插槽</h2>
+    <alert-box>
+      {{errormsg}}
+    </alert-box>
+    <h2>具名插槽</h2>
+    <base-layout>
+      <template v-slot:header>
+        <h1>这里是一个Header</h1>
+      </template>
+      测试布局
+      <template v-slot:footer>
+          <h1>这里是一个Footer</h1>
+        </template>
+    </base-layout>
+
+  </div>
+  <script>
+    Vue.component('alert-box', {
+      template: `
+      <div class="demo-alert-box">
+        <strong>Error!</strong>
+        <slot></slot>
+      </div>
+      `
+    })
+    Vue.component('base-layout', {
+      template: `
+      <div class="container">
+        <div class="header">
+          <slot name="header"></slot>
+        </div>
+        <div class="main">
+          <slot></slot>
+        </div>
+        <div class="footer">
+          <slot name="footer"></slot>
+        </div>
+      </div>
+      `
+    })
+
+    let app1 = new Vue({
+      el: '#app',
+      data: {
+        errormsg: '父组件中的错误信息'
+      },
+      methods: {
+
+      }
+    })
+  </script>
+</body>
+
+</html>
