@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue 练习模板</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+  <style>
+    .parent {
+      border: 1px solid #000;
+      padding: 10px;
+      margin-bottom: 300px;
+    }
+
+    .child {
+      border: 1px solid red;
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="parent">
+    <label> 普通模式：<input type="text" value="" /> </label>
+    <label> 自动获取焦点： <input v-focus type="text" value="1" /> </label>
+    <label> 自动获取焦点2： <input v-focus type="text" value="2" /> </label>
+    <br>
+    <label> 
+      绑定默认值
+      <input type="text" name="" v-defaultvalue />
+    </label>
+    <hr>
+    <div id="hook-arguments-example" v-demo:foo.a.b="message"></div>
+  </div>
+  <script>
+    // 全局注册自定义指令
+    Vue.directive('focus', {
+      inserted: function (el) {
+        el.focus()
+      }
+    })
+    let app1 = new Vue({
+      el: '#app',
+      data: {
+        message: 'hello'
+      },
+      methods: {
+
+      },
+      // 在组件上局注册自定义指令
+      directives: {
+        defaultvalue: {
+          bind: function (el) {
+            el.value = 'defaultvalue'
+          }
+        },
+        demo: {
+          bind: function(el, binding, vnode){
+            let s = JSON.stringify
+            el.innerHTML = `
+            指令名 name: ${s(binding.name)} <br/>
+            指令的绑定值 value: ${s(binding.value)} <br/>
+            字符串形式的指令表达式 expression: ${s(binding.expression)} <br/>
+            传给指令的参数 argument: ${s(binding.arg)} <br/>
+            一个包含修饰符的对象 modifiers: ${s(binding.modifiers)} <br/>
+            Vue 编译生成的虚拟节点 vnode keys: ${Object.keys(vnode).join(', ')} <br/>
+            `
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
