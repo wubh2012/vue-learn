@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>render v-model</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+  <style>
+    .parent {
+      border: 1px solid #000;
+      padding: 10px;
+      margin-bottom: 300px;
+    }
+
+    .child {
+      border: 1px solid red;
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="parent">
+    <render-demo v-model="name"></render-demo>
+    <br>
+    {{name}}
+  </div>
+
+  <script>
+    let app1 = new Vue({
+      el: '#app',
+      data: {
+        name: '马云'
+      },
+      methods: {
+
+      },
+      components: {
+        'render-demo': {
+          props: ['name'],
+          render: function (createElement) {
+            let self = this
+            console.log('判断this1', this instanceof Vue) // true
+            return createElement('input', {
+              domProps: {
+                value: name
+              },
+              on: {
+                input: function (event) {
+                  console.log('判断this2', this instanceof Window) // true, 这里的 
+                  console.log(event.currentTarget)
+                  self.$emit('input', event.currentTarget.value)
+                }
+              }
+            })
+
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

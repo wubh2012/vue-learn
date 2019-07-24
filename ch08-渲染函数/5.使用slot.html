@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>render 插槽</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+  <style>
+    .parent {
+      border: 1px solid #000;
+      padding: 10px;
+      margin-bottom: 300px;
+    }
+
+    .child {
+      border: 1px solid red;
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="parent">
+    <render-demo>
+      1111111111111111111111111
+      <div slot="header">页头</div>
+      <div slot="footer">页尾</div>
+      222222222222222222222222
+    </render-demo>
+  </div>
+
+  <script>
+    let app1 = new Vue({
+      el: '#app',
+      methods: {
+
+      },
+      components: {
+        'render-demo': {
+          render: function (createElement) {
+            let header = this.$slots.header
+            let footer = this.$slots.footer
+            let main = this.$slots.default
+            return createElement('div', [
+              createElement('h2', header),
+              createElement('div', main),
+              createElement('h2', footer)
+            ])
+
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

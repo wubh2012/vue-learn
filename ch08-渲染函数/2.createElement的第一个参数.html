@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>render 参数1</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+  <style>
+    .parent {
+      border: 1px solid #000;
+      padding: 10px;
+      margin-bottom: 300px;
+    }
+
+    .child {
+      border: 1px solid red;
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="parent">    
+    <render-demo></render-demo>
+  </div>
+ 
+  <script>
+    let app1 = new Vue({
+      el: '#app',
+      data: {
+        level: 1
+      },
+      methods: {
+
+      },
+      components: {
+        'render-demo': {         
+          render: function (createElement) {
+            //createElement 是一个函数，名字不能变，属于Vue中特殊的函数, 它的第一个参数是必选的
+            console.log(typeof createElement); 
+
+            // return createElement('div', '第一个参数可以是字符串')
+
+            return createElement({              
+              template: `<div>第一个参数可以是对象, 使用 prop 接收参数 {{test1}} , {{test2}} </div>`,
+            })
+
+            // let domFn = function(){
+            //   return {
+            //     template: `<div>第一个参数可以是函数</div>`
+            //   }
+            // }
+            // return createElement(domFn())
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

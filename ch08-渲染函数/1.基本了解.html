@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>基本了解</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+  <style>
+    .parent {
+      border: 1px solid #000;
+      padding: 10px;
+      margin-bottom: 300px;
+    }
+
+    .child {
+      border: 1px solid red;
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="parent">
+    <p>使用 template v-if判断 实现</p>
+    <child-component :level="level"></child-component>
+    <child-component level="2"></child-component>
+    <child-component level="3"></child-component>
+    <hr>
+    <br>
+    <p>使用 render 函数实现</p>
+    <anchored-heading :level="level"></anchored-heading>
+  </div>
+  <template id="heading-template">
+    <div>
+      <h1 v-if="level == 1">
+        <slot>标题一</slot>
+      </h1>
+      <h2 v-if="level == 2">
+        <slot>标题二</slot>
+      </h2>
+      <h3 v-if="level == 3">
+        <slot>标题三</slot>
+      </h3>
+    </div>
+  </template>
+  <script>
+    Vue.component('child-component', {
+      props: ['level'],
+      template: '#heading-template',
+    })
+
+    let app1 = new Vue({
+      el: '#app',
+      data: {
+        level: 1
+      },
+      methods: {
+
+      },
+      components: {
+        'anchored-heading': {
+          props: {
+            level: {
+              type: Number,
+              required: true
+            }
+          },
+          render: function (createElement) {
+            return createElement('h' + this.level, `这是标题${this.level}`)
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>render 参数2</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+  <style>
+    .parent {
+      border: 1px solid #000;
+      padding: 10px;
+      margin-bottom: 300px;
+    }
+
+    .child {
+      border: 1px solid red;
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="parent">
+    <render-demo></render-demo>
+  </div>
+
+  <script>
+    let app1 = new Vue({
+      el: '#app',
+      data: {
+        level: 1
+      },
+      methods: {
+
+      },
+      components: {
+        'render-demo': {
+          render: function (createElement) {
+            // 更多信息移步 https://cn.vuejs.org/v2/guide/render-function.html#%E6%B7%B1%E5%85%A5%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B1%A1
+            // 第二个参数表示与模板中属性对应的数据对象，可选
+            return createElement({
+              template: `<div>第二个参数demo</div>`,
+            }, {
+              'class': {
+                active: true,
+                testclass: false,
+              },
+              style: {
+                color: 'blue',
+                fontSize: '20px',
+              },
+              // 普通的 HTML 特性
+              attrs: {
+                id: '#demo1',
+                'data-test': 'testdata',
+              },
+              // DOM 属性
+              domProps: {
+                innerHTML: 'baz'
+              },
+            })
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
