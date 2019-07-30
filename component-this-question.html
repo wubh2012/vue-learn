@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue组件method中的this指向问题</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+  <style>
+    .parent{
+      border: 1px solid #000;
+      padding: 10px;
+      margin-bottom: 300px;
+    }
+    .child {
+      border: 1px solid red;
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="parent">
+    <button @click="testClick"> 父组件点击我 </button>
+    <br><br><br><br>
+    <child-component class="child">
+        
+    </child-component>
+  </div>
+  <script>
+    let app1 = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      components: {
+        'child-component': {
+          template: `<button @click="childClick"> 子组件点击我 </button>`,
+          methods: {
+            childClick: () => {
+              console.log('子组件', this)
+            }
+          }
+        }
+      },
+      methods: {
+        testClick: function() {
+          console.log(this)
+          alert(this instanceof Vue)
+          // 使用箭头函数方式，this 指向 window
+          // 使用 function方式，this 指向 Vue 的实例
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
